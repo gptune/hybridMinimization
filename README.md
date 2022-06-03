@@ -42,8 +42,7 @@ The scheme below shows how hybrid model handles both the continuous and categori
 - **Implementation.** The hybridMinimization is implemented within the python framework in a flexible way:
 
     - hybridMinimization can be used alone as a surrogate model and it is built on python, compatible with scikit-learn/scipy format.
-Computation
-    - hybridMinimization also has natural computational advantage when handling many categories. Instead of generating a full search tree, hybridMinimization naturally .
+    - hybridMinimization also has natural computational advantage when handling many categories. Instead of generating a full search tree, hybridMinimization naturally generates only those searched branches.
 ## **Usage**
 On the commandline, our model can be executed using the following lines:
 ```
