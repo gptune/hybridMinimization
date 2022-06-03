@@ -78,9 +78,6 @@ pkl_dict = {'categorical_model':h1_root,'continuous_model':h1_model,'train_X':h1
 
 These parameters control the behavior of the surrogate model and numerical stability, usually not data-dependent. 
 
-The very first question we should ask is that: do we believe there are different regimes in the black-box function (either theoretically or empirically)? 
-Under the limited budget, more pilot samples usually lead to a better fitted surrogate model. Fewer samples are needed if the signal-to-noise ratio of the black-box function is high; fewer samples are needed if the black-box function has few non-smooth points. Although with sufficient samples cGP and GP shows little difference (since the clustering scheme would essentially be smoothed out by sufficient samples), when the samples are limited each component of cGP would require more parameters to be fitted. In addition, cGP provides a informative partition of the domain.
-
 - **fn** The black-box function that returns a value. This can be defined in the same file or imported. 
 
 - **selection_criterion** The model selection criteria used in each sequential sampling step of the hybrid method. Currently we support: `custom` (our novel selection criteria) `loglik` (log likelihood of the joint GP model), `AIC` (Akaike information criteria), `BIC` (Bayesian information criteria), `HQC` (Hannan–Quinn information criterion).
