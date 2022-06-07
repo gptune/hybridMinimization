@@ -132,11 +132,12 @@ We provided Python code for reproducible and experimental purposes under [LICENS
 Please cite our paper using following BibTeX item:
 
     @article{luo_hybrid_2022,
-        title = {Hybrid Models for Mixed Variables in Bayesian Optimization},
-        journal = {In Preparation},
-        author = {Luo, Hengrui and Cho, Younghyun and Demmel, James W. and Li, Xiaoye S. and Liu, Yang},
-        year = {2022+},
-        pages = {1--56}
-    } 
+        title={Hybrid Models for Mixed Variables in Bayesian Optimization},
+        author={Hengrui Luo and Younghyun Cho and James W. Demmel and Xiaoye S. Li and Yang Liu},
+        year={2022},
+        eprint={2206.01409},
+        archivePrefix={arXiv},
+        primaryClass={cs.LG}
+    }
 
 Thank you again for the interest and please reach out if you have further questions.
