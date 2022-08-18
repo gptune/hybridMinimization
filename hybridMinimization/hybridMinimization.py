@@ -13,8 +13,8 @@ import copy
 import importlib,sys,datetime
 import gc
 #Custom modules below.
-from treeClass import *
-from kernelClass import *
+from hybridMinimization.treeClass import *
+from hybridMinimization.kernelClass import *
 #By default, we would not use the parallel mechanism to speed up the model selection step
 #----------Acquisition functions----------#
 def maximum_of_surrogate(X, X_sample, Y_sample, gpr, xi=1e-16):
