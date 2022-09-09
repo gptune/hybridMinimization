@@ -10,7 +10,7 @@ import random, string, importlib
 #This stores the trained model and the relevant dataset into a .pkl object for later loadings               
 import dill as pkl
   
-DESTINATION = '/media/hrluo/WORK/LBNLhrluo/minimalMCTS/'
+DESTINATION = '../'
 
 #If provided, just append new runs, otherwise create new RUNNING_STR as a stamp.
 RUNNING_STR = ''#'J2GLXVX8M28RV36VUGIWEHRW'
