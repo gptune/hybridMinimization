@@ -83,6 +83,8 @@ def upper_confidence_bound(X, X_sample, Y_sample, gpr, xi=1e-16):
 
 def hybridMinimization(fn,\
                        #fn: the black-box function to be evaluated.
+                       blkcst=None,\
+                       #blkcst: the black-box input constraints.                       
                        selection_criterion = 'custom',fix_model = -1,\
                        #by default choose fix_model=-1 would pick the best model under the selection criterion. 3 for MLP-asin+Matern52 kernel
                        #Here we implement 'loglik', 'AIC', 'BIC', 'HQC'(Hannan–Quinn information criterion) as model selection criteria among CoCaBO and usual GP kernels.
@@ -144,14 +146,22 @@ def hybridMinimization(fn,\
     X_categorical_dimension = len(categorical_list)
     
     #Proposal functions for GP inner loop.
-    def propose_location(acquisition, H_fixed, X_sample, Y_sample, gpr, bounds, n_restarts=1000,seed=42):#2**X_continuous_dimension,seed=42):
+    def propose_location(acquisition, H_fixed, X_sample, Y_sample, gpr, bounds, n_restarts=1000,seed=42,blkcst=None):#2**X_continuous_dimension,seed=42):
         min_val = np.inf
         min_x = np.zeros((1, X_continuous_dimension))
         #np.random.seed(random_seed)
         def min_obj(X):
             # Minimization objective is the negative acquisition function
-            return -acquisition(np.hstack((H_fixed.reshape(-1,X_categorical_dimension),X.reshape(-1,X_continuous_dimension))), X_sample,\
-                    Y_sample, gpr)
+            Xstack = np.hstack((H_fixed.reshape(-1,X_categorical_dimension),X.reshape(-1,X_continuous_dimension)))
+            flag=1
+            if(blkcst is not None):
+                if(not blkcst(Xstack[0])):
+                    flag=0
+            if(flag==0):
+                return -acquisition(Xstack, X_sample,\
+                        Y_sample, gpr)
+            else:
+                return np.asarray([-1e12])
 
         # Sample, then find the best optimum by starting from n_restart different random points.
         ssample_size = n_restarts#1000
@@ -170,7 +180,7 @@ def hybridMinimization(fn,\
             obj_sample.append(min_obj(x0_candidate[j,:]))
         x0_best_sample = x0_candidate[np.argmin(obj_sample),:]
         for x0 in [x0_best_sample]:
-            res = scipy.optimize.minimize(min_obj, x0=x0, bounds=bounds, method='L-BFGS-B',options={'disp': False,'gtol': 1e-8})        
+            res = scipy.optimize.minimize(min_obj, x0=x0, bounds=bounds, method='L-BFGS-B',options={'disp': False,'gtol': 1e-8})
             if res.fun < min_val:
                 min_val = res.fun[0]
                 min_x = res.x           
@@ -448,19 +458,19 @@ def hybridMinimization(fn,\
                         #HQC = log(log(n)) * 2k - 2 * LL, the model with the lowest HQC is selected.
                         continuous_model_HQC.append(-1.*myHQC)
                     if selection_criterion=='acq':
-                        X_next, best_acq = propose_location(acquisition=expected_improvement,H_fixed=H_next,\
+                        X_next, best_acq = propose_location(acquisition=expected_improvement,blkcst=blkcst, H_fixed=H_next,\
                                                             X_sample=X_sample, Y_sample=Y_sample, gpr=[continuous_model], bounds=continuous_bounds,seed=random_seed)
                         continuous_model_acq.append(best_acq)
                         #the model with the highest acquisition function value is selected.
                     if selection_criterion=='custom':
                         continuous_model_loglik.append(continuous_model.log_likelihood())
-                        X_next, best_acq = propose_location(acquisition=expected_improvement,H_fixed=H_next,\
+                        X_next, best_acq = propose_location(acquisition=expected_improvement,blkcst=blkcst,H_fixed=H_next,\
                                                             X_sample=X_sample, Y_sample=Y_sample, gpr=[continuous_model], bounds=continuous_bounds,seed=random_seed)
                         continuous_model_acq.append(best_acq)
-                        #X_next, best_ucb = propose_location(acquisition=expected_improvement,H_fixed=H_next,\
+                        #X_next, best_ucb = propose_location(acquisition=expected_improvement,blkcst=blkcst,H_fixed=H_next,\
                         #                                    X_sample=X_sample, Y_sample=Y_sample, gpr=[continuous_model], bounds=continuous_bounds,seed=random_seed)
                         #continuous_model_ucb.append(best_ucb)
-                        #X_next, best_sur = propose_location(acquisition=maximum_of_surrogate,H_fixed=H_next,\
+                        #X_next, best_sur = propose_location(acquisition=maximum_of_surrogate,blkcst=blkcst,H_fixed=H_next,\
                         #                                    X_sample=X_sample, Y_sample=Y_sample, gpr=[continuous_model], bounds=continuous_bounds,seed=random_seed)
                         #continuous_model_max.append(best_sur)
                         
@@ -525,7 +535,7 @@ def hybridMinimization(fn,\
                         print(colored('hybridMinimization>>>','white','on_blue'),'Based on ',selection_criterion,', I automatically choose maximum',model_cand[arg_idx],' from model selection criteria list\n',np.round(criterion_list,3))
                             
                 if node_optimize == 'GP' or node_optimize == 'GP-EI':
-                    X_next, best_acq = propose_location(acquisition=expected_improvement,H_fixed=H_next,\
+                    X_next, best_acq = propose_location(acquisition=expected_improvement,blkcst=blkcst,H_fixed=H_next,\
                             X_sample=X_sample, Y_sample=Y_sample, gpr=continuous_model_list, bounds=continuous_bounds,seed=random_seed)
                 else:
                     raise NotImplementedError('Continuous optimizer: ',node_optimize,' has not been implemented.')
