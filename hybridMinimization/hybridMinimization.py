@@ -277,6 +277,8 @@ def hybridMinimization(fn,\
     
     #Put a placeholder model_history, recording which models are chosen each time. 
     model_history = []#None
+    #Put a placeholder continuous_model_list
+    continuous_model_list=[]    
     # Main loop for tree search
     i = -1
     while (i<=n_find_tree) and (Y_sample.shape[0]<n_find_tree*n_find_leaf):
