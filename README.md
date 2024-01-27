@@ -1,11 +1,10 @@
 
 # hybridMinimization: Monte Carlo Tree Search (MCTS) and Gaussian process (GP) hybrid models for mixed variable surrogate modeling
 
-## **Content** 
+## **Content**
 
-This is the code repository for the research publication "Hybrid Models for Mixed Variables in
-Bayesian Optimization" by [Hengrui Luo](https://hrluo.github.io/), [James W. Demmel](http://people.eecs.berkeley.edu/~demmel/), [Younghyun Cho](https://github.com/younghyunc), [Xiaoye S. Li](https://crd.lbl.gov/departments/applied-mathematics/scalable-solvers/members/staff-members/xiaoye-li/) and [Yang Liu](https://crd.lbl.gov/departments/applied-mathematics/scalable-solvers/members/staff-members/yang-liu/). 
-The manuscript of this paper can be accessed at 
+This is the code repository for the research publication "Hybrid Parameter Search and Dynamic Model Selection for Mixed-Variable Bayesian Optimization" by [Hengrui Luo](https://hrluo.github.io/), [James W. Demmel](http://people.eecs.berkeley.edu/~demmel/), [Younghyun Cho](https://github.com/younghyunc), [Xiaoye S. Li](https://crd.lbl.gov/departments/applied-mathematics/scalable-solvers/members/staff-members/xiaoye-li/) and [Yang Liu](https://crd.lbl.gov/departments/applied-mathematics/scalable-solvers/members/staff-members/yang-liu/). 
+The manuscript of this paper can be accessed at [arxiv](https://arxiv.org/abs/2206.01409) and [doi](https://doi.org/10.1080/10618600.2024.2308216)
 
 Below we describe the files in the folder for your reference.
 
@@ -131,13 +130,14 @@ Please also check our website for the application of [GPTune project](http://gpt
 We provided Python code for reproducible and experimental purposes under [LICENSE](https://github.com/gptune).
 Please cite our paper using following BibTeX item:
 
-    @article{luo_hybrid_2022,
-        title={Hybrid Models for Mixed Variables in Bayesian Optimization},
-        author={Hengrui Luo and Younghyun Cho and James W. Demmel and Xiaoye S. Li and Yang Liu},
-        year={2022},
-        eprint={2206.01409},
-        archivePrefix={arXiv},
-        primaryClass={cs.LG}
-    }
+	@article{luo2024hybrid,
+	  title={Hybrid Parameter Search and Dynamic Model Selection for Mixed-Variable Bayesian Optimization},
+	  author={Luo, Hengrui and Cho, Younghyun and Demmel, James W and Li, Xiaoye S and Liu, Yang},
+	  journal={Journal of Computational and Graphical Statistics},
+	  number={just-accepted},
+	  pages={1--30},
+	  year={2024},
+	  publisher={Taylor \& Francis}
+	}
 
 Thank you again for the interest and please reach out if you have further questions.
