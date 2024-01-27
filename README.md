@@ -1,7 +1,7 @@
 
 # hybridMinimization: Monte Carlo Tree Search (MCTS) and Gaussian process (GP) hybrid models for mixed variable surrogate modeling
 
-## **Content**
+## **Content** 
 
 This is the code repository for the research publication "Hybrid Models for Mixed Variables in
 Bayesian Optimization" by [Hengrui Luo](https://hrluo.github.io/), [James W. Demmel](http://people.eecs.berkeley.edu/~demmel/), [Younghyun Cho](https://github.com/younghyunc), [Xiaoye S. Li](https://crd.lbl.gov/departments/applied-mathematics/scalable-solvers/members/staff-members/xiaoye-li/) and [Yang Liu](https://crd.lbl.gov/departments/applied-mathematics/scalable-solvers/members/staff-members/yang-liu/). 
